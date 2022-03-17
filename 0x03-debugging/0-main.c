@@ -2,8 +2,9 @@
 
 /**
  * main - test for negative of positive
- * Return: the found number
+ * Return: always 0 success
  */
+
 int main(void)
 {
 	int i;
