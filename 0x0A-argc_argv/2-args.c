@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-/*
+/**
  * main - print number of argumments
- * @argc: int
- * @argv: the list
- * Return: alwasy 0 success
+ * @argc: the arguments
+ * @argv: the arrays
+ * Return: always 0 success
  */
 int main(int argc, char const *argv[])
 {
