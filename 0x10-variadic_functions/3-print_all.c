@@ -1,53 +1,80 @@
 #include "variadic_functions.h"
 
 /**
- * print_all - print string
- * @format: separate srings
+ * print_int - print string
+ * @list: separate srings
+ */
+void print_int(va_list list)
+{
+
+	printf("%d", va_arg(list, int));
+}
+
+/**
+ * print_float - print flot
+ * @list: the arguments
+ */
+void print_float(va_list list)
+{
+	printf("%f", va_arg(list, double));
+}
+
+/**
+ * print_char - int
+ * @list: the arguments
+ */
+void print_char(va_list list)
+{
+	printf("%c", va_arg(list, int));
+}
+
+/**
+ * print_str - print str
+ * @list: the arguments
+ */
+void print_str(va_list list)
+{
+	char *s = va_arg(list, char *);
+
+	s == NULL ? printf("(nil)") : printf("%s", s);
+}
+
+/**
+ * print_all - print any type
+ * @format: arg to print
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
-	char *str, *sep = "";
-
 	va_list list;
+	int i = 0, j = 0;
+	char *sep = "";
+
+	printTypeStruct printType[] = {
+		{ "i", print_int },
+		{ "f", print_float },
+		{ "c", print_char },
+		{ "s", print_str },
+		{NULL, NULL}
+	};
 
 	va_start(list, format);
 
-	if (format)
+	while (format && format[i])
 	{
-		while (format[i])
+		j = 0;
+		while (j < 4)
 		{
-			switch (format[i])
+			if (*printType[j].type == format[i])
 			{
-				case 'c':
-				printf("%s&c", sep, va_arg(list, int));
+				printf("%s", sep);
+				printType[j].printer(list);
+				sep = ", ";
 				break;
-
-				case 'i':
-				printf("%s&d", sep, va_arg(list, int));
-				break;
-
-				case 'f':
-				printf("%s&f", sep, va_arg(list, double));
-				break;
-
-				case 's':
-				str = va_arg(list, char *);
-				if (!str)
-					str = "(nil)";
-				printf("%s%s", sep, str);
-				break;
-
-				default:
-				i++;
-				continue;
 			}
-			sep = ", ";
-			i++;
+			j++;
 		}
+		i++;
 	}
-
-
 	printf("\n");
 	va_end(list);
 }
