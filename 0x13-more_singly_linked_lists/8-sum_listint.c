@@ -1,28 +1,26 @@
 #include "lists.h"
 
 /**
- * get_nodeint_at_index - gets a node of linked list at specific index
+ * sum_listint - gets a node of linked list at specific index
  * @head: head of list
- * @index: index to pull node from
- *
  * Return: pointer to node at specified index, NULL if not found
  */
 
-listint_t *get_nodeint_at_index(listint_t *head, unsigned int index)
+int sum_listint(listint_t *head)
 {
-	unsigned int ctr = 0;
-	listint_t *temp_h;
+	listint_t *current;
+	int sum = 0;
 
-	if (!head)
-	return (NULL);
+	if (head == NULL)
+		return (0);
 
-	temp_h = head;
-	while (temp_h)
+	current = head;
+
+	while (current != NULL)
 	{
-		if (ctr == index)
-		return (temp_h);
-		temp_h = temp_h->next;
-		ctr++;
+		sum += current->n;
+		current = current->next;
 	}
-	return (NULL);
+
+	return (sum);
 }
