@@ -4,7 +4,7 @@
  * main - copies content of a file
  * @argc: number of arguments
  * @argv: aurguments arrays
- * Return:
+ * Return: on success 0
  */
 int main(int argc, char *argv[])
 {
