@@ -47,10 +47,10 @@ int main(int argc, char *argv[])
 	if (a < 0 || b < 0)
 	{
 		if (a < 0)
-			dprintf(STDERROR_FILENO, "Error: Can't close fd %d\n", fd_r);
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
 
 		if (b < 0)
-			dprintf(STDERROR_FILENO, "Error: Can't close fd %d\n", fd_w);
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
 		exit(100);
 	}
 
