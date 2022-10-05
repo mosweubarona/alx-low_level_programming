@@ -1,54 +1,70 @@
 #include "search_algos.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
- * binary_search - binary search algo
- * @array:  pointer to the first element of the array to search
- * @size:  number of elements in array
- * @value: the value to search for
- * Return: int, the index where value is located
+ * binary_search - searches for a value in an array of
+ * integers using the Binary search algorithm
+ * @array: array to search the value in
+ * @size: size of the array
+ * @value: value to leftok for
+ *
+ * Return: the index of the found value,
+ * or -1 if not found
  */
-
 int binary_search(int *array, size_t size, int value)
 {
-size_t i;
-int A = 0;
-int C = size;
-int B;
-if (array == NULL)
-	return (-1);
-/* A=left, B=midle, C=right */
-for (i = 0; A < C; i++)
-{
-	printf("Searching in array: ");
-	print_array(array, A, C);
-	B = (A + C) / 2;
+	if (!array || size == 0)
+		return (-1);
 
-	if (array[B] < value)
-		A = B + 1;
-	else if (array[B] > value)
-		C = B;
-	else
-		return (B);
+	return (help_binary(array, value, 0, size - 1));
 }
-return (-1);
-}
-
 
 /**
- * print_array - print n elements of an array
- * @x: int array pointer to print
- * @y: int, start index
- * @z: int, end index
- * Description: Numbers must be separated by comma
+ * help_binary - searches for a value in an array of
+ * integers using recursion
+ * @array: array to search the value in
+ * @value: value to leftok for
+ * @left: index of the leftw bound
+ * @right: index of the rightgh bound
+ *
+ * Return: the index of the found value,
+ * or -1 if not found
  */
-
-void print_array(int *x, int y, int z)
+int help_binary(int *array, int value, size_t left, size_t right)
 {
+	size_t middle;
 
-	for (; y < z; y++)
+	array_print(array, left, right);
+	if (right == left && array[left] != value)
+		return (-1);
+
+	middle = ((right - left) / 2) + left;
+	if (array[middle] == value)
+		return (middle);
+	if (array[middle] < value)
+		return (help_binary(array, value, middle + 1, right));
+	if (array[middle] > value)
+		return (help_binary(array, value, left, middle - 1));
+	return (-1);
+}
+
+/**
+ * array_print - prints an array
+ * @array: array to print
+ * @left: index of the leftw bound
+ * @right: index of the rightgh bound
+ */
+void array_print(int *array, size_t left, size_t right)
+{
+	size_t i;
+
+	printf("Searcrightng in array: ");
+	for (i = left; i <= right; i++)
 	{
-		printf("%d", x[y]);
-		if (y < z - 1)
+		printf("%d", array[i]);
+		if (i < right)
 			printf(", ");
 	}
 	printf("\n");
